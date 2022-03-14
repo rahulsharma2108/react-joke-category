@@ -3,12 +3,16 @@ import { Dropdown } from './Dropdown';
 import { Joke } from './Joke';
 import { Counter } from './Counter';
 import { makeGetCall } from './Common/utilities';
+import AppContext from './Common/AppContext';
 import './style.css';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [joke, setJoke] = useState('');
+  const [counter, setCounter] = useState(15);
+  const [timer, setTimer] = useState('');
+
   const CATEGORIES_URL = 'https://api.chucknorris.io/jokes/categories';
   const JOKE_URL = `https://api.chucknorris.io/jokes/random?category=${selectedCategory}`;
 
@@ -18,9 +22,6 @@ export default function App() {
   };
   const errorFn = (err) => {
     console.log(err);
-  };
-  const getJoke = (e) => {
-    setSelectedCategory(e.target.value);
   };
   const getJokeData = () => {
     if (selectedCategory !== '') {
@@ -34,6 +35,10 @@ export default function App() {
     }
   };
 
+  const clearTimer = () => {
+    clearTimeout(timer);
+  };
+
   useEffect(() => {
     makeGetCall(CATEGORIES_URL, populateCategories, errorFn);
   }, []);
@@ -45,9 +50,24 @@ export default function App() {
   return (
     <div className="app">
       <div className="appContent">
-        <Dropdown categories={categories} renderJoke={getJoke} />
-        <Joke joke={joke} />
-        <Counter requestJoke={getJokeData}></Counter>
+        <AppContext.Provider
+          value={{
+            categories,
+            selectedCategory,
+            setSelectedCategory,
+            joke,
+            getJokeData,
+            counter,
+            setCounter,
+            timer,
+            setTimer,
+            clearTimer,
+          }}
+        >
+          <Dropdown />
+          <Joke />
+          <Counter></Counter>
+        </AppContext.Provider>
       </div>
     </div>
   );

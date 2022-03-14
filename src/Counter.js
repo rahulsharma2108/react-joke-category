@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import AppContext from './Common/AppContext';
 
-export const Counter = ({ requestJoke }) => {
-  const [counter, setCounter] = useState(15);
+export const Counter = () => {
+  const { getJokeData, counter, setCounter, setTimer } = useContext(AppContext);
 
   const newData = () => {
     setCounter(15);
-    requestJoke();
+    getJokeData();
   };
 
   useEffect(() => {
     counter > 0 &&
-      setTimeout(() => {
-        setCounter(counter - 1);
-      }, 1000);
+      setTimer(
+        setTimeout(() => {
+          setCounter(counter - 1);
+        }, 1000)
+      );
 
     counter === 0 && newData();
   }, [counter]);
