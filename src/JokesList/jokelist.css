@@ -1,0 +1,14 @@
+.jokesContainer {
+  border: 1px solid black;
+  min-height: 150px;
+  list-style: none;
+  padding: 0px;
+}
+.jokesContainer li {
+  border-bottom: 1px solid;
+  padding: 5px;
+}
+li.header {
+  background-color: grey;
+  text-align: center;
+}

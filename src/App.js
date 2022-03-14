@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from './Dropdown';
 import { Joke } from './Joke';
+import { JokesList } from './JokesList';
 import { Counter } from './Counter';
 import { makeGetCall } from './Common/utilities';
 import AppContext from './Common/AppContext';
@@ -8,6 +9,7 @@ import './style.css';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
+  const [likedJokes, setLikedJokes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [joke, setJoke] = useState('');
   const [counter, setCounter] = useState(15);
@@ -62,10 +64,13 @@ export default function App() {
             timer,
             setTimer,
             clearTimer,
+            likedJokes,
+            setLikedJokes,
           }}
         >
           <Dropdown />
           <Joke />
+          <JokesList />
           <Counter></Counter>
         </AppContext.Provider>
       </div>
