@@ -1,0 +1,20 @@
+h1,
+p {
+  font-family: Lato;
+}
+body {
+  margin: 0;
+}
+.app {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+}
+.appContent {
+  width: 300px;
+  height: 200px;
+}
